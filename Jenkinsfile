@@ -73,7 +73,6 @@ pipeline {
                     export NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN
 
                     npx netlify --version
-                    npx netlify status
                     npx netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID
                 '''
             }
