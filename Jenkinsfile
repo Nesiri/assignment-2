@@ -70,7 +70,13 @@ pipeline {
                     echo "Deploying to Netlify projectId: $NETLIFY_PROJECT_ID"
                     # Export the token for Netlify CLI
                     export NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN
-                  ./node_modules/.bin/netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID
+                 # Deploy WITHOUT triggering Netlify build
+                    ./node_modules/.bin/netlify deploy \
+                    --prod \
+                    --dir=build \
+                    --site=$NETLIFY_PROJECT_ID \
+                    --no-build \
+                    --message="Jenkins Deploy"
                 '''
             }
             post {
