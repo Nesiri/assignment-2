@@ -9,7 +9,7 @@ function App() {
           Nesru Abbamilki
         </h2>
          <h3>
-          TECH2102:Enterprise Computing
+          MyCourse Name: TECH2102:Enterprise Computing
         </h3>
       </header>
     </div>

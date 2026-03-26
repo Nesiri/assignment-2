@@ -70,6 +70,9 @@ pipeline {
                     echo "Deploying to Netlify projectId: $NETLIFY_PROJECT_ID"
                     # Export the token for Netlify CLI
                     export NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN
+                   
+                     ls -la build
+                     
                  # Deploy WITHOUT triggering Netlify build
                     ./node_modules/.bin/netlify deploy \
                     --prod \
