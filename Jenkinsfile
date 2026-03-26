@@ -68,18 +68,17 @@ pipeline {
                 sh '''
                     npm install netlify-cli
                     echo "Deploying to Netlify projectId: $Netlify_ProjectId"
-                    modules/.bin/netlify --version
-                    modules/.bin/netlify status
-                    modules/.bin/netlify deploy --prod --dir=build
+                    npx netlify --version
+                    npx netlify status
+                    npx netlify deploy --prod --dir=build
                 '''
             }
-            post{
-                success{
-                    "===Deployed to netlify====="
+            post {
+                success {
+                    echo "===Deployed to Netlify====="
                 }
-                failure{
-
-                    "=====Failed to deploy to netlfy======"
+                failure {
+                    echo "=====Failed to deploy to Netlify======"
                 }
             }
         }
