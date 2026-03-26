@@ -8,6 +8,9 @@ function App() {
         <h2>
           Nesru Abbamilki
         </h2>
+         <h3>
+          TECH2102:Enterprise Computing
+        </h3>
       </header>
     </div>
   );

@@ -68,12 +68,9 @@ pipeline {
                 sh '''
                     npm install netlify-cli
                     echo "Deploying to Netlify projectId: $NETLIFY_PROJECT_ID"
-
                     # Export the token for Netlify CLI
                     export NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN
-
-                    npx netlify --version
-                   npx netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID --skip-build
+                  ./node_modules/.bin/netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID
                 '''
             }
             post {
