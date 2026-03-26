@@ -1,70 +1,68 @@
-pipeline{
+pipeline {
     agent any
-    
-    stages{
-        stage("Build"){
-            
+
+    stages {
+        stage("Build") {
             agent {
-                Docker{
-                    image:'node:24.14.1-alpine3.23'
-                    reuseNode:true
+                docker {
+                    image 'node:24.14.1-alpine3.23'
+                    reuseNode true
                 }
             }
-            steps{
-               sh '''
-                  npm install
-                  npm run build
-                  node --version
-                  npm --version
-                  ls -la
-               '''
+            steps {
+                sh '''
+                    npm install
+                    npm run build
+                    node --version
+                    npm --version
+                    ls -la
+                '''
             }
-            post{
-                always{
+            post {
+                always {
                     echo "========always========"
                 }
-                success{
+                success {
                     echo "========Build executed successfully========"
                 }
-                failure{
+                failure {
                     echo "========Build execution failed========"
                 }
             }
         }
-        stage("Test"){
+
+        stage("Test") {
             agent {
-                Docker{
-                    image:'node:24.14.1-alpine3.23'
-                    reuseNode:true
+                docker {
+                    image 'node:24.14.1-alpine3.23'
+                    reuseNode true
                 }
             }
-            steps{
-                sh '''
-                   npm  test
-                  
-                   '''
+            steps {
+                sh 'npm test'
             }
-            post{
-                always{
+            post {
+                always {
                     echo "=====always===="
                 }
-                success{
-                    "====Test Sucess"
+                success {
+                    echo "====Test Success===="
                 }
-                failure{
-                    "====Test failed"
+                failure {
+                    echo "====Test failed===="
                 }
             }
         }
     }
-    post{
-        always{
+
+    post {
+        always {
             echo "========always========"
         }
-        success{
+        success {
             echo "========pipeline executed successfully ========"
         }
-        failure{
+        failure {
             echo "========pipeline execution failed========"
         }
     }
