@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    environment {
+        Netlify_ProjectId = "dd6c8c2f-8a37-4901-990d-a87cccfcf467"
+        Netlify_AuthToken = credentials("netlify_ID")  
+    }
     stages {
         stage("Build") {
             agent {
@@ -50,6 +53,33 @@ pipeline {
                 }
                 failure {
                     echo "====Test failed===="
+                }
+            }
+        }
+
+        stage("Deploy") {
+            agent {
+                docker {
+                    image 'node:24.14.1-alpine3.23'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm install netlify-cli
+                    echo "Deploying to Netlify projectId: $Netlify_ProjectId"
+                    modules/.bin/netlify --version
+                    modules/.bin/netlify status
+                    modules/.bin/netlify deploy --prod --dir=build
+                '''
+            }
+            post{
+                success{
+                    "===Deployed to netlify====="
+                }
+                failure{
+
+                    "=====Failed to deploy to netlfy======"
                 }
             }
         }
