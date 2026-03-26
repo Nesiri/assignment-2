@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        Netlify_ProjectId = "dd6c8c2f-8a37-4901-990d-a87cccfcf467"
-        Netlify_AuthToken = credentials("netlify_ID")  
+        NETLIFY_PROJECT_ID = "dd6c8c2f-8a37-4901-990d-a87cccfcf467"
+        NETLIFY_AUTH_TOKEN = credentials("netlify_ID")  
     }
     stages {
         stage("Build") {
@@ -67,10 +67,14 @@ pipeline {
             steps {
                 sh '''
                     npm install netlify-cli
-                    echo "Deploying to Netlify projectId: $Netlify_ProjectId"
+                    echo "Deploying to Netlify projectId: $NETLIFY_PROJECT_ID"
+
+                    # Export the token for Netlify CLI
+                    export NETLIFY_AUTH_TOKEN=$NETLIFY_AUTH_TOKEN
+
                     npx netlify --version
                     npx netlify status
-                    npx netlify deploy --prod --dir=build
+                    npx netlify deploy --prod --dir=build --site=$NETLIFY_PROJECT_ID
                 '''
             }
             post {
